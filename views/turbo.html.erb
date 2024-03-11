@@ -1,0 +1,77 @@
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+  <script type="module">
+    import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo@v7';
+  </script>
+</head>
+<header>
+  <h1>Turbo Frame Examples</h1>
+</header>
+<main>
+  <section>
+    <header>
+    <h2>Turbo-frame default usage: links</h2>
+    </header>
+    <turbo-frame id="case1">
+      <a href="/case1"><b>Click me!</b></a>
+    </turbo-frame>
+
+  </section>
+
+  <hr  />
+  <section>
+    <header>
+      <h2>Turbo-frame default usage: forms</h2>
+    </header>
+
+    <turbo-frame id="form">
+      <form method="post">
+        <label for="post[name]">Your name</label>
+        <input name="post[name]" type="text" />
+        <button type="submit">Submit</button>
+      </form>
+    </turbo-frame>
+  </section>
+
+  <hr />
+  <section>
+    <header><h2>Target a turbo-frame</h2></header>
+    <a href="/case2" data-turbo-frame="case2"><b>Load content in following box</b></a> <br>
+    <aside>
+      <turbo-frame id="case2">
+        <progress id="progress-bar" aria-label="Content loading…"></progress>
+      </turbo-frame>
+    </aside>
+  </section>
+
+  <hr />
+  <section>
+    <header><h2>Drive with caching example</h2></header>
+
+    <a href="/drive-caching">Go to page 2</a>
+  </section>
+
+  <hr />
+  <section>
+    <turbo-frame id="messages" target="_top">
+      <a href="/messages/1">
+        Following link will replace the whole page, not this frame.
+      </a><br />
+
+      <a href="/messages/1" data-turbo-frame="_self">
+        Following link will replace just this frame.
+      </a>
+    </turbo-frame>
+  </section>
+
+  <hr />
+  <section>
+    <header><h2>Experiment: return 2 frames</h2></header>
+    <turbo-frame id="frame1">
+      <aside>
+      <a href="test"><b>Fire the bombs!</b></a>
+      </aside>
+    </turbo-frame>
+    <turbo-frame id="frame2"><aside>War never changes</aside></turbo-frame>
+  </section>
+</main>
