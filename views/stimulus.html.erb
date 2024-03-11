@@ -1,0 +1,76 @@
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+  <script type="module">
+    import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo@v7';
+  </script>
+  <script type="module">
+    import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
+    window.Stimulus = Application.start()
+
+    Stimulus.register("hello", class extends Controller {
+      static targets = [ "name", "message" ]
+
+
+      connect() {
+        console.log("Hello, Stimulus!", this.element)
+      }
+
+      greet() {
+        this.messageTarget.textContent = `Hello, ${this.name}!`
+      }
+
+      get name() {
+        return this.nameTarget.value
+      }
+    })
+
+    Stimulus.register("basket", class extends Controller {
+      static targets = ["counter"]
+      static values = {
+        counter: Number, default: 0
+      }
+
+      connect() {
+        this.counterTarget.textContent = this.counterValue;
+      }
+
+      addToBasket(e) {
+        e.preventDefault();
+
+        this.counterValue = this.counterValue + 1;
+        this.counterTarget.textContent = this.counterValue;
+      }
+    })
+  </script>
+
+</head>
+
+<header>
+  <h1>Stimulus Examples</h1>
+</header>
+
+<main>
+  <section>
+    <header><h2>Basic Example</h2></header>
+
+    <div data-controller="hello">
+      <label>Your name: </label>
+      <input data-hello-target="name" type="text">
+      <button data-action="click->hello#greet">Greet</button>
+      <h3 data-hello-target="message"></h3>
+    </div>
+  </section>
+
+  <hr />
+  <article data-controller="basket">
+    <header><h2>Combine with Turbo: Baskets</h2></header>
+
+    <aside><p><span data-basket-target="counter" data-basket-counter-value=0 data-turbo-permanent></span> items in basket</p></aside>
+
+    <form>
+      <button data-action="basket#addToBasket">Add to Cart</button>
+    </form>
+
+    <a href="/away">go somewhere else</a>
+  </article>
+</main>
