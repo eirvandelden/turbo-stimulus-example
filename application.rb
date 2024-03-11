@@ -3,7 +3,16 @@ require "sinatra"
 Tilt.register Tilt::ERBTemplate, "html.erb"
 
 get "/" do
+  erb :index
+end
+
+get "/turbo" do
   erb :turbo
+end
+
+post "/turbo" do
+  @data = params[:post][:name]
+  erb :turbo_post
 end
 
 get "/case1" do
@@ -24,11 +33,15 @@ get "/messages/1" do
   erb :turbo_message
 end
 
-post "/" do
-  @data = params[:post][:name]
-  erb :turbo_post
-end
 
 get "/test" do
   erb :turbo_test
+end
+
+get "/stimulus" do
+  erb :stimulus
+end
+
+get "/away" do
+  erb :stimulus_away
 end

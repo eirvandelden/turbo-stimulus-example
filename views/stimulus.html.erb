@@ -1,15 +1,12 @@
 <head>
   <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-  <script type="module">
-    import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo@v7';
-  </script>
+
   <script type="module">
     import { Application, Controller } from "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js"
     window.Stimulus = Application.start()
 
     Stimulus.register("hello", class extends Controller {
       static targets = [ "name", "message" ]
-
 
       connect() {
         console.log("Hello, Stimulus!", this.element)
@@ -30,28 +27,40 @@
         counter: Number, default: 0
       }
 
-      connect() {
+      initialize() {
+        debugger;
         this.counterTarget.textContent = this.counterValue;
       }
 
       addToBasket(e) {
         e.preventDefault();
 
-        this.counterValue = this.counterValue + 1;
+        let old = this.counterValue;
+        this.counterValue = old + 1;
         this.counterTarget.textContent = this.counterValue;
       }
     })
   </script>
-
 </head>
 
 <header>
+  <nav>
+    <ul>
+      <li><a href="/turbo">Turbo</a></li>
+      <li><a href="/stimulus">Stimulus</a></li>
+    </ul>
+  </nav>
+
   <h1>Stimulus Examples</h1>
+  <p>This is just a small example on how to use Stimulus. For more information, see the <a href="https://stimulus.hotwired.dev/handbook/introduction">documentation</a>.</p>
 </header>
 
 <main>
   <section>
-    <header><h2>Basic Example</h2></header>
+    <header>
+      <h2>Basic Example</h2>
+      <p>Add a Controller, an Action and a Target to get your own personal greeting.</p>
+    </header>
 
     <div data-controller="hello">
       <label>Your name: </label>
@@ -62,10 +71,13 @@
   </section>
 
   <hr />
-  <article data-controller="basket">
-    <header><h2>Combine with Turbo: Baskets</h2></header>
+  <article data-controller="basket" data-turbo-permanent>
+    <header>
+      <h2>Combine with Turbo: Baskets</h2>
+      <p>When an element is marked as permanent, Turbo saves the current values and event listeners and moves them to the next page, allowing data to persist between pages.</p>
+    </header>
 
-    <aside><p><span data-basket-target="counter" data-basket-counter-value=0 data-turbo-permanent></span> items in basket</p></aside>
+    <aside><p><span data-basket-target="counter" ></span> items in basket</p></aside>
 
     <form>
       <button data-action="basket#addToBasket">Add to Cart</button>
